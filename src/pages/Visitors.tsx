@@ -8,7 +8,8 @@ import {
   Download,
   CheckCircle2,
   LogOut,
-  AlertCircle
+  AlertCircle,
+  Users
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { 

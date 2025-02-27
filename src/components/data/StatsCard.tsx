@@ -11,6 +11,7 @@ interface StatsCardProps {
   trend?: number;
   trendDirection?: 'up' | 'down' | 'neutral';
   className?: string;
+  style?: React.CSSProperties;
 }
 
 const StatsCard = ({
@@ -21,6 +22,7 @@ const StatsCard = ({
   trend,
   trendDirection = 'neutral',
   className,
+  style,
 }: StatsCardProps) => {
   const getTrendColor = () => {
     if (trendDirection === 'up') return 'text-green-500';
@@ -35,7 +37,7 @@ const StatsCard = ({
   };
 
   return (
-    <Card className={cn("overflow-hidden card-hover", className)}>
+    <Card className={cn("overflow-hidden card-hover", className)} style={style}>
       <CardContent className="p-6">
         <div className="flex items-start justify-between">
           <div>

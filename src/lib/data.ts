@@ -116,6 +116,7 @@ export const visitors: Visitor[] = [
     company: 'Startup Inc',
     purpose: 'Partnership Discussion',
     host: '5',
+    checkInTime: getRandomRecentDate(), // Adding the required checkInTime property
     expectedArrivalTime: getRandomFutureDate(),
     status: 'no-show',
   },
@@ -150,6 +151,7 @@ export const visitors: Visitor[] = [
     company: 'Consulting LLC',
     purpose: 'Consultation',
     host: '5',
+    checkInTime: getRandomRecentDate(), // Adding the required checkInTime property
     expectedArrivalTime: getRandomFutureDate(),
     status: 'no-show',
   },
