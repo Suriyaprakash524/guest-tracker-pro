@@ -40,7 +40,7 @@ import Sidebar from '@/components/layout/Sidebar';
 import SearchBar from '@/components/ui/SearchBar';
 import VisitorCard from '@/components/visitor/VisitorCard';
 import VisitorForm from '@/components/visitor/VisitorForm';
-import { visitors, getHostById } from '@/lib/data';
+import { visitors as initialVisitors, getHostById } from '@/lib/data';
 import { Visitor } from '@/types';
 import { useToast } from '@/hooks/use-toast';
 
@@ -48,6 +48,7 @@ const Visitors = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [filterStatus, setFilterStatus] = useState<string[]>([]);
+  const [visitors, setVisitors] = useState<Visitor[]>(initialVisitors);
   const [filteredVisitors, setFilteredVisitors] = useState<Visitor[]>(visitors);
   const [isNewVisitorOpen, setIsNewVisitorOpen] = useState(false);
   const { toast } = useToast();
@@ -61,6 +62,20 @@ const Visitors = () => {
   };
 
   const handleCheckout = (id: string) => {
+    // Find the visitor to check out
+    const updatedVisitors = visitors.map(visitor => {
+      if (visitor.id === id && visitor.status === 'checked-in') {
+        return {
+          ...visitor,
+          status: 'checked-out',
+          checkOutTime: new Date()
+        };
+      }
+      return visitor;
+    });
+    
+    setVisitors(updatedVisitors);
+    
     toast({
       title: "Visitor checked out",
       description: "The visitor has been successfully checked out.",
@@ -75,6 +90,21 @@ const Visitors = () => {
   };
 
   const handleAddVisitor = (data: any) => {
+    // Create a new visitor
+    const newVisitor: Visitor = {
+      id: `${visitors.length + 1}`,
+      name: data.name,
+      email: data.email,
+      phone: data.phone,
+      company: data.company,
+      purpose: data.purpose,
+      host: data.host,
+      checkInTime: new Date(),
+      status: 'checked-in',
+    };
+    
+    setVisitors([newVisitor, ...visitors]);
+    
     toast({
       title: "Visitor added",
       description: "The visitor has been successfully registered.",
