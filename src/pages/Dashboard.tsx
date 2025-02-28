@@ -31,7 +31,7 @@ const Dashboard = () => {
       if (visitor.id === id && visitor.status === 'checked-in') {
         return {
           ...visitor,
-          status: 'checked-out',
+          status: 'checked-out' as const,
           checkOutTime: new Date()
         };
       }
